@@ -5,6 +5,31 @@ import re
 from bs4 import BeautifulSoup
 import tldextract
 import nltk
+# ---- NLTK data: ensure tokenizer & stopwords are available on the server ----
+import os
+import nltk
+
+# Put NLTK data inside project folder so Streamlit can access it reliably
+nltk_data_dir = os.path.join(os.path.dirname(__file__), "nltk_data")
+os.makedirs(nltk_data_dir, exist_ok=True)
+
+# Make sure nltk knows to look here
+if nltk_data_dir not in nltk.data.path:
+    nltk.data.path.append(nltk_data_dir)
+
+# Download the common tokenizers + stopwords (quietly). punkt_tab sometimes requested on servers;
+# we'll try both punkt and punkt_tab to be safe.
+nltk.download('punkt', download_dir=nltk_data_dir, quiet=True)
+nltk.download('stopwords', download_dir=nltk_data_dir, quiet=True)
+
+# Some environments request punkt_tab — try downloading it too (if it exists in your NLTK version)
+try:
+    nltk.download('punkt_tab', download_dir=nltk_data_dir, quiet=True)
+except Exception:
+    # fallback: punt if punkt_tab is not available in this NLTK distribution
+    pass
+# -------------------------------------------------------------------------------
+
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import numpy as np
