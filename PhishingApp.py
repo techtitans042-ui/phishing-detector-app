@@ -75,7 +75,7 @@ def prepare_features(text, sender=""):
 
 # UI
 st.set_page_config(page_title="Phishing Detector", page_icon="🔍", layout="centered")
-st.title("🔍 Phishing Email Detector by, TECHTITAS")
+st.title("🔍 Phishing Email Detector by, TECHTITANS")
 st.markdown("Paste the email subject and body below and press **Check**.")
 
 subject = st.text_input("Email subject (optional)")
